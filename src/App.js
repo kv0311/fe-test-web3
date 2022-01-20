@@ -3,12 +3,15 @@ import './App.css';
 import contract from './contracts/NFTCollectible.json';
 import { ethers } from 'ethers';
 
-const contractAddress = "0x355638a4eCcb777794257f22f50c289d4189F245";
+const contractAddress = "0xafde4454c12ca1300695c57faa86ec2364836b9f";
 const abi = contract.abi;
 
 function App() {
 
   const [currentAccount, setCurrentAccount] = useState(null);
+
+  const [currentNFT, setCurrentNFT] = useState(null);
+
 
   const checkWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -57,8 +60,16 @@ function App() {
         const nftContract = new ethers.Contract(contractAddress, abi, signer);
         console.log(nftContract);
         // let str = await nftContract.addBody([["140","10","90","210","eed811"],["140","10","90","220","eed811"],["140","10","90","230","eed811"],["140","10","90","240","eed811"],["20","10","90","250","eed811"],["110","10","120","250","eed811"],["20","10","90","260","eed811"],["110","10","120","260","eed811"],["20","10","90","270","eed811"],["110","10","120","270","eed811"],["20","10","90","280","eed811"],["110","10","120","280","eed811"],["20","10","90","290","eed811"],["110","10","120","290","eed811"],["20","10","90","300","eed811"],["110","10","120","300","eed811"],["20","10","90","310","eed811"],["110","10","120","310","eed811"]])
-        let str= await nftContract.mint()
-        console.log(str)
+        // let str1= await nftContract.create("djsk")
+        
+        let str= await nftContract.tokenURI("0")
+        let decodeMSG = atob(str.split(',')[1]);
+        // console.log(decodeMSG)
+        // console.log(test)
+       
+        console.log(decodeMSG.split(`"image":"`)[1].split(`}`)[0])
+        setCurrentNFT(decodeMSG.split(`"image":"`)[1].split(`"}`)[0])
+        console.log(currentNFT)
         // console.log("Initialize payment");
         // let nftTxn = await nftContract.mintNFTs(1, { value: ethers.utils.parseEther("0.01") });
 
@@ -87,7 +98,7 @@ function App() {
   const mintNftButton = () => {
     return (
       <button onClick={mintNftHandler} className='cta-button mint-nft-button'>
-        Mint NFT
+        Get NFT
       </button>
     )
   }
@@ -102,6 +113,8 @@ function App() {
       <div>
         {currentAccount ? mintNftButton() : connectWalletButton()}
       </div>
+      <img src={currentNFT}/>
+      <div>${currentNFT}</div>
     </div>
   )
 }
