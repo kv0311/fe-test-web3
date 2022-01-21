@@ -11,6 +11,9 @@
     color: white;
     font-size: 18px;
     cursor: pointer;
+    position: absolute;
+    bottom: 10%;
+    left: 20%;
 }
 
 .connect-wallet-button {
@@ -20,3 +23,56 @@
 .mint-nft-button {
     background: orange;
 }
+
+.nounWrapper {
+    align-self: flex-end;
+    width: 100%;
+  }
+  .nounContentCol {
+    display: flex;
+  }
+  .navArrowsContainer {
+    position: absolute;
+    bottom: 50%;
+    left: 55%;
+  }
+  .textArrow{
+    margin-left: 1rem;
+    display: inline-block;
+    border: none;
+    background-color: #6db3f2;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    font-size: xx-large;
+  }
+  .leftArrow {
+    margin-left: 1rem;
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background-color: #6db3f2;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    font-size: xx-large;
+  }
+  .rightArrow {
+    margin-left: 1rem;
+    margin-left: 0.6rem;
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    font-size: xx-large;
+  }
+
+  .nftImg {
+    position: absolute;
+    left: 350px;
+    top: 100px;
+  }

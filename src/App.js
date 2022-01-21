@@ -2,121 +2,155 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import contract from './contracts/NFTCollectible.json';
 import { ethers } from 'ethers';
+import { Container, Row, Col } from 'react-bootstrap';
+// const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
+const contractAddress = "0x4f588b315aa4d69c3c00395cff33326c0254809c";
 
-const contractAddress = "0xafde4454c12ca1300695c57faa86ec2364836b9f";
 const abi = contract.abi;
 
 function App() {
 
-  const [currentAccount, setCurrentAccount] = useState(null);
+   const [currentAccount, setCurrentAccount] = useState(null);
 
-  const [currentNFT, setCurrentNFT] = useState(null);
+   const [currentNFT, setCurrentNFT] = useState(null);
+
+   const [currentIndex, setCurrentIndex] = useState(1);
+
+   const [currentIndexNFT, setCurrentIndexNFT] = useState(1);
 
 
-  const checkWalletIsConnected = async () => {
-    const { ethereum } = window;
 
-    if (!ethereum) {
-      console.log("Make sure you have Metamask installed!");
-      return;
-    } else {
-      console.log("Wallet exists! We're ready to go!")
-    }
-
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-    if (accounts.length !== 0) {
-      const account = accounts[0];
-      console.log("Found an authorized account: ", account);
-      setCurrentAccount(account);
-    } else {
-      console.log("No authorized account found");
-    }
-  }
-
-  const connectWalletHandler = async () => {
-    const { ethereum } = window;
-
-    if (!ethereum) {
-      alert("Please install Metamask!");
-    }
-
-    try {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      console.log("Found an account! Address: ", accounts[0]);
-      setCurrentAccount(accounts[0]);
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const mintNftHandler = async () => {
-    try {
+   const checkWalletIsConnected = async () => {
       const { ethereum } = window;
 
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const nftContract = new ethers.Contract(contractAddress, abi, signer);
-        console.log(nftContract);
-        // let str = await nftContract.addBody([["140","10","90","210","eed811"],["140","10","90","220","eed811"],["140","10","90","230","eed811"],["140","10","90","240","eed811"],["20","10","90","250","eed811"],["110","10","120","250","eed811"],["20","10","90","260","eed811"],["110","10","120","260","eed811"],["20","10","90","270","eed811"],["110","10","120","270","eed811"],["20","10","90","280","eed811"],["110","10","120","280","eed811"],["20","10","90","290","eed811"],["110","10","120","290","eed811"],["20","10","90","300","eed811"],["110","10","120","300","eed811"],["20","10","90","310","eed811"],["110","10","120","310","eed811"]])
-        // let str1= await nftContract.create("djsk")
-        
-        let str= await nftContract.tokenURI("0")
-        let decodeMSG = atob(str.split(',')[1]);
-        // console.log(decodeMSG)
-        // console.log(test)
-       
-        console.log(decodeMSG.split(`"image":"`)[1].split(`}`)[0])
-        setCurrentNFT(decodeMSG.split(`"image":"`)[1].split(`"}`)[0])
-        console.log(currentNFT)
-        // console.log("Initialize payment");
-        // let nftTxn = await nftContract.mintNFTs(1, { value: ethers.utils.parseEther("0.01") });
-
-        // console.log("Mining... please wait");
-        // await nftTxn.wait();
-
-        // console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-
+      if (!ethereum) {
+         console.log("Make sure you have Metamask installed!");
+         return;
       } else {
-        console.log("Ethereum object does not exist");
+         console.log("Wallet exists! We're ready to go!")
       }
 
-    } catch (err) {
-      console.log(err);
-    }
-  }
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
 
-  const connectWalletButton = () => {
-    return (
-      <button onClick={connectWalletHandler} className='cta-button connect-wallet-button'>
-        Connect Wallet
-      </button>
-    )
-  }
+      if (accounts.length !== 0) {
+         const account = accounts[0];
+         console.log("Found an authorized account: ", account);
+         setCurrentAccount(account);
+      } else {
+         console.log("No authorized account found");
+      }
+   }
 
-  const mintNftButton = () => {
-    return (
-      <button onClick={mintNftHandler} className='cta-button mint-nft-button'>
-        Get NFT
-      </button>
-    )
-  }
+   const connectWalletHandler = async () => {
+      const { ethereum } = window;
 
-  useEffect(() => {
-    checkWalletIsConnected();
-  }, [])
+      if (!ethereum) {
+         alert("Please install Metamask!");
+      }
 
-  return (
-    <div className='main-app'>
-      <h1>Scrappy Squirrels Tutorial</h1>
-      <div>
-        {currentAccount ? mintNftButton() : connectWalletButton()}
+      try {
+         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+         console.log("Found an account! Address: ", accounts[0]);
+         setCurrentAccount(accounts[0]);
+      } catch (err) {
+         console.log(err)
+      }
+   }
+
+   const mintNftHandler = async () => {
+      try {
+         const { ethereum } = window;
+
+         if (ethereum) {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+            let randomString = (Math.random() + 1).toString(36).substring(2);
+            await nftContract.create(randomString)
+
+            // console.log(str)
+            // console.log("Initialize payment");
+            // let nftTxn = await nftContract.mintNFTs(1, { value: ethers.utils.parseEther("0.01") });
+
+            // console.log("Mining... please wait");
+            // await nftTxn.wait();
+
+            // console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+
+         } else {
+            console.log("Ethereum object does not exist");
+         }
+      } catch (err) {
+         console.log(err);
+      }
+   }
+
+   const getNft = async (nftIndex) => {
+      try {
+         const { ethereum } = window;
+
+         if (ethereum) {
+            console.log("get nft: %s",nftIndex)
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+            let str = await nftContract.tokenURI(nftIndex.toString())
+            let decodeMSG = atob(str.split(',')[1]);
+            setCurrentNFT(decodeMSG.split(`"image":"`)[1].split(`"}`)[0])
+         }
+      } catch (err) {
+         console.log("dont have nft")
+         setCurrentNFT("")
+      }
+   }
+
+   const increaseIndex = () => {
+      getNft(currentIndex + 1);
+      setCurrentIndex(currentIndex + 1);
+      console.log(currentIndex);
+   }
+
+   const decreaseIndex = () => {
+      getNft(currentIndex - 1);
+      setCurrentIndex(currentIndex - 1);
+      console.log(currentIndex);
+   }
+
+   const connectWalletButton = () => {
+      return (
+         <button onClick={connectWalletHandler} className='cta-button connect-wallet-button'>
+            Connect Wallet
+         </button>
+      )
+   }
+
+   const mintNftButton = () => {
+      return (
+         <button onClick={mintNftHandler} className='cta-button mint-nft-button'>
+            Mint NFT
+         </button>
+      )
+   }
+
+   useEffect(() => {
+      checkWalletIsConnected();
+   }, [])
+
+   return (
+      <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
+         <div className="navArrowsContainer">
+            <div className="textArrow">{`Noun ${currentIndex}`}</div>
+            <button className="leftArrow" onClick={decreaseIndex}>←</button>
+            <button className="rightArrow" onClick={increaseIndex} >→</button></div>
+         <div>
+            <div className="nftImg">
+               {currentNFT ? <img src={currentNFT}></img> : <h1 className="notFound">Dont have this image</h1>}
+            </div>
+            {currentAccount ? mintNftButton() : connectWalletButton()}
+         </div>
       </div>
-      <img src={currentNFT}/>
-      <div>${currentNFT}</div>
-    </div>
-  )
+
+   );
 }
 
 export default App;
