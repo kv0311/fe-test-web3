@@ -4,7 +4,8 @@ import contract from './contracts/NFTCollectible.json';
 import { ethers } from 'ethers';
 import { Container, Row, Col } from 'react-bootstrap';
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0x6cbc5511a89cfd6e8d80d0c57810b4265fd80520";
+// const contractAddress = "0x4f588b315aa4d69c3c00395cff33326c0254809c";
+const contractAddress = "0xe90e18364e8b4e6af2b2e8745d3a0edc0e1d61da";
 
 
 const abi = contract.abi;
