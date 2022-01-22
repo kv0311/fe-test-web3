@@ -4,11 +4,12 @@ import contract from './contracts/NFTCollectible.json';
 import { ethers } from 'ethers';
 import { Container, Row, Col } from 'react-bootstrap';
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0x4f588b315aa4d69c3c00395cff33326c0254809c";
+const contractAddress = "0x6cbc5511a89cfd6e8d80d0c57810b4265fd80520";
+
 
 const abi = contract.abi;
 
-function App() {
+function Home() {
 
    const [currentAccount, setCurrentAccount] = useState(null);
 
@@ -103,7 +104,6 @@ function App() {
          setCurrentNFT("")
       }
    }
-
    const increaseIndex = () => {
       getNft(currentIndex + 1);
       setCurrentIndex(currentIndex + 1);
@@ -153,4 +153,4 @@ function App() {
    );
 }
 
-export default App;
+export default Home;
