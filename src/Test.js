@@ -3,13 +3,14 @@ import './App.css';
 import contract from './contracts/NFTCollectible.json';
 import { ethers } from 'ethers';
 import React from 'react';
+import imageData from './data/image-data.json'
 
 import { ToastContainer, toast } from 'react-toastify';
 import { ReactNoti, notify, POSITION } from 'react-noti'
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0xa8ad2815f075d28d4094c4b9a36810e783a4ba2b";
+const contractAddress = "0xbAba166160cC08fB52400349D920f22c89125E75";
 const abi = contract.abi;
 
 function Create() {
@@ -51,9 +52,10 @@ function Create() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-
-            await contractInstance.addAccessories(JSON.parse(e.target.elements.accessory.value));
-            notify.success("Add accessory success");
+            console.log(contractInstance)
+            const accessories = imageData.images.accessories.map(e =>e.data)
+            console.log(accessories)
+            await contractInstance.addManyAccessories(accessories);
         } catch (err){
             notify.error('Error message', {
                 title: 'Add accessory fail',
@@ -70,7 +72,29 @@ function Create() {
             }
             console.log(contractInstance)
 
-            let response = await contractInstance.generateSVG({parts: ["0x00021d14020d0004340a000d00063408000c000334012b0134012b013408000c000234012b0136012b0136013408000c000234028e012b018e0134080009000534018e012b0136012b0134080008000b34080007000b34090006000d34080005000e34013607000400043401000a34033605000300043402000a34053603000200043402000b3407360100043403000c3403000536033404000c340400013601000136010007000b34090007000834021602340800080002360a3407000700063608340600"],background: "d5d7e1"});
+            let response = await contractInstance.tokenURI(0);
+            console.log(response)
+      }
+    const setFounder =async (e) => {
+        let contractInstance = currentContractInstance;
+            if(!contractInstance){
+                contractInstance = initContractInstance();
+                setCurrentContractInstance(contractInstance);
+            }
+            console.log(contractInstance)
+
+            let response = await contractInstance.setFounder("0xEBd42256B90f002d19C8f2ed4Eed406765759F57");
+            console.log(response)
+      }
+      const setMinter =async (e) => {
+        let contractInstance = currentContractInstance;
+            if(!contractInstance){
+                contractInstance = initContractInstance();
+                setCurrentContractInstance(contractInstance);
+            }
+            console.log(contractInstance)
+
+            let response = await contractInstance.setMinter();
             console.log(response)
       }
     const addBodies = async(e) => {
@@ -82,8 +106,9 @@ function Create() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-
-            await contractInstance.addBodies(JSON.parse(e.target.elements.body.value));
+            const bodies = imageData.images.bodies.map(e =>e.data)
+            console.log(bodies)
+            await contractInstance.addManyBodies(bodies);
             notify.success("Add Bodies success");
         } catch (err){
             console.log(err)
@@ -99,8 +124,9 @@ function Create() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-
-            await contractInstance.addGlasseses(JSON.parse(e.target.elements.glasses.value));
+            const glasses = imageData.images.glasses.map(e =>e.data)
+            console.log(glasses)
+            await contractInstance.addManyGlasses(glasses);
             notify.success("Add Bodies glass");
         } catch (err){
             console.log(err)
@@ -116,8 +142,11 @@ function Create() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
+            const heads = imageData.images.heads.map(e =>e.data)
+            console.log(heads.slice(200))
+            // await contractInstance.addHeads(JSON.parse(e.target.elements.head.value));
+            await contractInstance.addManyHeads(heads.slice(200));
 
-            await contractInstance.addHeads(JSON.parse(e.target.elements.head.value));
             notify.success("Add Head glass");
         } catch (err){
             console.log(err)
@@ -127,6 +156,7 @@ function Create() {
     const addColors = async(e) => {
         try{
             e.preventDefault();
+            console.log(imageData.palette)
             let contractInstance = currentContractInstance;
             if(!contractInstance){
                 contractInstance = initContractInstance();
@@ -134,7 +164,30 @@ function Create() {
             }
             console.log(contractInstance)
 
-            await contractInstance.addColors(JSON.parse(e.target.elements.color.value));
+            // await contractInstance.addColors(JSON.parse(e.target.elements.color.value));
+            await contractInstance.addManyColorsToPalette(0,imageData.palette);
+
+            notify.success("Add Color glass");
+        } catch (err){
+            console.log(err)
+        }
+        
+    }
+
+    const addBackground = async(e) => {
+        try{
+            e.preventDefault();
+            console.log(imageData.palette)
+            let contractInstance = currentContractInstance;
+            if(!contractInstance){
+                contractInstance = initContractInstance();
+                setCurrentContractInstance(contractInstance);
+            }
+            console.log(contractInstance)
+            console.log(imageData.bgcolors)
+            // await contractInstance.addColors(JSON.parse(e.target.elements.color.value));
+            await contractInstance.addManyBackgrounds(imageData.bgcolors);
+
             notify.success("Add Color glass");
         } catch (err){
             console.log(err)
@@ -170,7 +223,15 @@ function Create() {
                         <input style={{ width: "75%", display: "inline-block" }} name="color" type="text" placeholder="Color" />
                         <button className="nft-create" type="submit"> Create </button>
                     </form>
-                    <button onClick={handleSuccessClick}>Success!</button>
+                    <form onSubmit={addBackground}>
+                        <input style={{ width: "75%", display: "inline-block" }} name="background" type="text" placeholder="Background" />
+                        <button className="nft-create" type="submit"> Create </button>
+                    </form>
+                    <button onClick={handleSuccessClick}>Mint!</button>
+                    <button onClick={setFounder}>setFounder</button>
+                    <button onClick={setMinter}>setMinter</button>
+
+
                 </div>
             </div>
         </div>

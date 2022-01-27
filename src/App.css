@@ -70,13 +70,26 @@
     background-color: transparent;
     font-size: xx-large;
   }
-
+  .description{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  .owner {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+  }
   .nftImg {
     position: absolute;
     left: 350px;
     top: 100px;
   }
-
+  .transferForm {
+      top: 70%;
+      position: absolute;
+      left: 50%;
+  }
 /* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
 
 
