@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/NFTCollectible.json';
+import contract from './contracts/Descriptor.json';
 import { ethers } from 'ethers';
 import React from 'react';
 
@@ -15,12 +15,13 @@ const options = {
   showProgress: false
 }
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0xe90e18364e8b4e6af2b2e8745d3a0edc0e1d61da";
+const contractAddress = "0xFeED02aE711768f9DD869c96c3543DF0AF6EAf1e";
 const abi = contract.abi;
 
 function Create() {
     const [currentContractInstance, setCurrentContractInstance] = useState(null);
-    
+    const [currentNFT, setCurrentNFT] = useState(null);
+
     const initContractInstance = () => {
         const { ethereum } = window;
 
@@ -43,141 +44,45 @@ function Create() {
             console.log("Ethereum object does not exist");
          }
     }
-    const test = async () => {
-        const contractIn = initContractInstance;
-        console.log(contractIn.accessory);
-    }
-    test()
-    const addAccessory = async (e) => {
-        try{
-            e.preventDefault();
-            let contractInstance = currentContractInstance;
-            if(!contractInstance){
-                contractInstance = initContractInstance();
-                setCurrentContractInstance(contractInstance);
-            }
-            console.log(contractInstance)
-
-            await contractInstance.addAccessories(JSON.parse(e.target.elements.accessory.value));
-            notify.success("Add accessory success");
-        } catch (err){
-            notify.error('Error message', {
-                title: 'Add accessory fail',
-              })
-            console.log(err)
-        }
-        
-    }
-    const handleSuccessClick = () => {
-        toast('🦄 Wow so easy!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
+   
+    const handleSuccessClick = async(e) => {
+        e.preventDefault();
+        console.log(e.target.elements.accessory.value)
+        const contractIn = initContractInstance();
+        console.log(contractIn)
+        const str=  await contractIn.dataURI(0, {
+                 background: e.target.elements.background.value,
+                 body: e.target.elements.body.value,
+                 accessory: e.target.elements.accessory.value,
+                 head: e.target.elements.head.value,
+                 glasses: e.target.elements.glasses.value
+            
+        })
+        let decodeMSG = atob(str.split(',')[1]);
+            console.log(JSON.parse(decodeMSG))
+            console.log(JSON.parse(decodeMSG).image)
+            setCurrentNFT(JSON.parse(decodeMSG))
       }
-    const addBodies = async(e) => {
-        try{
-            e.preventDefault();
-            let contractInstance = currentContractInstance;
-            if(!contractInstance){
-                contractInstance = initContractInstance();
-                setCurrentContractInstance(contractInstance);
-            }
-            console.log(contractInstance)
-
-            await contractInstance.addBodies(JSON.parse(e.target.elements.body.value));
-            notify.success("Add Bodies success");
-        } catch (err){
-            console.log(err)
-        }
+    
         
-    }
-    const addGlasses = async(e) => {
-        try{
-            e.preventDefault();
-            let contractInstance = currentContractInstance;
-            if(!contractInstance){
-                contractInstance = initContractInstance();
-                setCurrentContractInstance(contractInstance);
-            }
-            console.log(contractInstance)
-
-            await contractInstance.addGlasseses(JSON.parse(e.target.elements.glasses.value));
-            notify.success("Add Bodies glass");
-        } catch (err){
-            console.log(err)
-        }
-        
-    }
-    const addHeads = async(e) => {
-        try{
-            e.preventDefault();
-            let contractInstance = currentContractInstance;
-            if(!contractInstance){
-                contractInstance = initContractInstance();
-                setCurrentContractInstance(contractInstance);
-            }
-            console.log(contractInstance)
-
-            await contractInstance.addHeads(JSON.parse(e.target.elements.head.value));
-            notify.success("Add Head glass");
-        } catch (err){
-            console.log(err)
-        }
-        
-    }
-    const addColors = async(e) => {
-        try{
-            e.preventDefault();
-            let contractInstance = currentContractInstance;
-            if(!contractInstance){
-                contractInstance = initContractInstance();
-                setCurrentContractInstance(contractInstance);
-            }
-            console.log(contractInstance)
-
-            await contractInstance.addColors(JSON.parse(e.target.elements.color.value));
-            notify.success("Add Color glass");
-        } catch (err){
-            console.log(err)
-        }
-        
-    }
     return (
         <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
+            <div className="nftImg" style={{left: "34%",top: "0%"}} >
+               {currentNFT ? <img src={currentNFT.image}></img> : <h1 className="notFound">Dont have this image</h1>}
+            </div>
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
-                    <h2>Add svg index</h2>
-                    <form onSubmit={addAccessory}>
+                    <h2>Get NFT By Index</h2>
+                    <form onSubmit={handleSuccessClick}>
                         <input style={{ width: "75%", display: "inline-block" }} name="accessory" type="text" placeholder="Accessory" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-
-                    <form onSubmit={addBodies}>
                         <input style={{ width: "75%", display: "inline-block" }} name="body" type="text" placeholder="Body" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-
-                    <form onSubmit={addGlasses}>
                         <input style={{ width: "75%", display: "inline-block" }} name="glasses" type="text" placeholder="Glass" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-
-                    <form onSubmit={addHeads}>
                         <input style={{ width: "75%", display: "inline-block" }} name="head" type="text" placeholder="Head" />
-                        <button className="nft-create" type="submit"> Create </button>
+                        <input style={{ width: "75%", display: "inline-block" }} name="background" type="text" placeholder="Background" />
+                        <button className="nft-create">Get</button>
                     </form>
-
-                    <form onSubmit={addColors}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="color" type="text" placeholder="Color" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-                    <button onClick={handleSuccessClick}>Success!</button>
                 </div>
+                
             </div>
         </div>
     );

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/NFTCollectible.json';
+import contract from './contracts/NFT-Management.json';
 import { ethers } from 'ethers';
 import { Container, Row, Col } from 'react-bootstrap';
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
 // const contractAddress = "0x4f588b315aa4d69c3c00395cff33326c0254809c";
 // const contractAddress = "0xa3f18350B5A4eFBdd6E55656dac1370420E9a24E"; bsc done
-const contractAddress ="0xbAba166160cC08fB52400349D920f22c89125E75"
+const contractAddress ="0xB5F45e7c47F2DC0B7D12112E6767cfc7d8B6c84e"
 
 
 const abi = contract.abi;
@@ -102,7 +102,7 @@ function Home() {
             const nftContract = new ethers.Contract(contractAddress, abi, signer);
             console.log(nftContract);
             let owner = await nftContract.ownerOf(nftIndex)
-            let str = await nftContract.tokenURI(nftIndex)
+            let str = await nftContract.dataURI(nftIndex)
             setOwner(owner);
             let decodeMSG = atob(str.split(',')[1]);
             console.log(JSON.parse(decodeMSG))

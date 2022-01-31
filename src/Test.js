@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/NFTCollectible.json';
+import contract from './contracts/Descriptor.json';
 import { ethers } from 'ethers';
 import React from 'react';
 import imageData from './data/image-data.json'
@@ -10,7 +10,7 @@ import { ReactNoti, notify, POSITION } from 'react-noti'
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0xbAba166160cC08fB52400349D920f22c89125E75";
+const contractAddress = "0xFeED02aE711768f9DD869c96c3543DF0AF6EAf1e";
 const abi = contract.abi;
 
 function Create() {
@@ -151,7 +151,6 @@ function Create() {
         } catch (err){
             console.log(err)
         }
-        
     }
     const addColors = async(e) => {
         try{
