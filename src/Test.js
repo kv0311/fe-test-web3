@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/Descriptor.json';
+import contract from './contracts/WL.json';
 import { ethers } from 'ethers';
 import React from 'react';
 import imageData from './data/image-data.json'
@@ -10,7 +10,7 @@ import { ReactNoti, notify, POSITION } from 'react-noti'
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0xFeED02aE711768f9DD869c96c3543DF0AF6EAf1e";
+const contractAddress = "0x4B20dd827Dc975A53FDCD48e3EB5aa5A96a0AA2A";
 const abi = contract.abi;
 
 function Create() {
@@ -46,16 +46,16 @@ function Create() {
     const addAccessory = async (e) => {
         try{
             e.preventDefault();
+
             let contractInstance = currentContractInstance;
             if(!contractInstance){
                 contractInstance = initContractInstance();
                 setCurrentContractInstance(contractInstance);
             }
+            await contractInstance.addToAirdropWhitelist(["0xEBd42256B90f002d19C8f2ed4Eed406765759F57","0x1a521Ac995ABCbc2baB882325E0427Ac0dDfd06e"])
+            await contractInstance.setMintAirdropEnabled(true)
+            // const data = await contractInstance.getMetaDataByNftIndex(1);
             console.log(contractInstance)
-            console.log(contractInstance)
-            const accessories = imageData.images.accessories.map(e =>e.data)
-            console.log(accessories)
-            await contractInstance.addManyAccessories(accessories);
         } catch (err){
             notify.error('Error message', {
                 title: 'Add accessory fail',
