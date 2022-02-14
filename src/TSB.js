@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/iconex.json';
+import contract from './contracts/TSB.json';
 import { ethers } from 'ethers';
 import React from 'react';
 import imageData from './data/image-data.json'
@@ -10,8 +10,9 @@ import { ReactNoti, notify, POSITION } from 'react-noti'
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0x6c4F76CAD02FC226451cfD4194F6e94f0DA8D18f";
+const contractAddress = "0xe8E39C89f72E4EFa20061a7E4C6162cAcbb1BbA8";
 const abi = contract.abi;
+
 
 function TSB() {
     const [currentContractInstance, setCurrentContractInstance] = useState(null);
@@ -48,7 +49,7 @@ function TSB() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-            const tokenId =await contractInstance.claim(2);
+            const tokenId =await contractInstance.receiveToken(100);
             console.log(tokenId)
           }catch (err){
               console.log(err)
@@ -76,7 +77,12 @@ function TSB() {
                 contractInstance = initContractInstance();
                 setCurrentContractInstance(contractInstance);
             }
-            const data = await contractInstance.getABC();
+            const data = await contractInstance.tokenURI(1);
+            const abc = await contractInstance.functions.getListNFTIdByAddress()
+            const abc1 = await contractInstance.functions.ownerOf(1)
+            console.log(abc1)
+
+            console.log(abc)
             console.log(data)
             // console.log(contractInstance)
             // await contractInstance.addWhitelist(
