@@ -103,7 +103,7 @@ function Airdrop() {
         <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
-                    <button onClick={testFunction}>test function</button>
+                    <button onClick={testFunction}>claim</button>
                 </div>
             </div>
         </div>
