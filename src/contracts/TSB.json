@@ -3,11 +3,6 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "_owner",
-          "type": "address"
-        },
-        {
           "internalType": "contract IERC20",
           "name": "_ivdToken",
           "type": "address"
@@ -20,31 +15,44 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
         },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
         {
           "indexed": false,
           "internalType": "address",
-          "name": "fromAccount",
+          "name": "",
           "type": "address"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "totalBalance",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "IReceivedTokens",
+      "name": "Received",
       "type": "event"
     },
     {
       "inputs": [
         {
-          "internalType": "address",
+          "internalType": "address payable",
           "name": "referAddress",
           "type": "address"
         },
@@ -54,7 +62,7 @@
           "type": "uint256"
         }
       ],
-      "name": "claim",
+      "name": "buyToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -62,7 +70,7 @@
           "type": "bool"
         }
       ],
-      "stateMutability": "nonpayable",
+      "stateMutability": "payable",
       "type": "function"
     },
     {
@@ -92,14 +100,21 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      "name": "receiveToken",
+      "name": "transferOwnership",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

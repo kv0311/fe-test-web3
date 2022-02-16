@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/TSB.json';
 import { ethers } from 'ethers';
 import React from 'react';
-import imageData from './data/image-data.json'
-
-import { ToastContainer, toast } from 'react-toastify';
-import { ReactNoti, notify, POSITION } from 'react-noti'
-const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0xe8E39C89f72E4EFa20061a7E4C6162cAcbb1BbA8";
+import contract from './contracts/TSB.json';
+const contractAddress = "0x1dfe2Fd228CbcD41dCaD6A6e6C6a528b39265a60";
 const abi = contract.abi;
 
 
@@ -40,8 +35,7 @@ function TSB() {
          }
     }
     
-    
-      const addProject =async (e) => {
+      const testFunction =async (e) => {
           try{
             let contractInstance = currentContractInstance;
             if(!contractInstance){
@@ -49,27 +43,11 @@ function TSB() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-            const tokenId =await contractInstance.receiveToken(100);
+            const tokenId =await contractInstance.buyToken("0xEBd42256B90f002d19C8f2ed4Eed406765759F57",10,{ value: ethers.utils.parseEther("0.1")});
             console.log(tokenId)
           }catch (err){
               console.log(err)
           }
-        
-            
-            // await contractInstance.addProject(
-            //     "1",
-            //     "Testing1",
-            //     "0xEBd42256B90f002d19C8f2ed4Eed406765759F57",
-            //     "100000000000000000000",
-            //     "0",
-            //     "100000000000000000000",
-            //     "10",
-            //     "0xEBd42256B90f002d19C8f2ed4Eed406765759F57",
-            //     99999999999,
-            //     0,
-            // )
-            // let response = await contractInstance.setMinter();
-            // console.log(response)
     }
     const addWhitelist =async (e) => {
         let contractInstance = currentContractInstance;
@@ -127,14 +105,7 @@ function TSB() {
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
                     <h2>Add svg index</h2>
-                    <button onClick={addProject}>add project</button>
-
-                    <button onClick={addWhitelist}>add whitelist</button>
-                    <button onClick={test}>get</button>
-                    <button onClick={invest}>invest</button>
-
-
-
+                    <button onClick={testFunction}>test function</button>
                 </div>
             </div>
         </div>

@@ -279,13 +279,7 @@
         }
       ],
       "name": "claim",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
+      "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
@@ -411,19 +405,13 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "nftID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getMetaDataByNftIndex",
+      "inputs": [],
+      "name": "getListNFTIdByAddress",
       "outputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256[]",
           "name": "",
-          "type": "string"
+          "type": "uint256[]"
         }
       ],
       "stateMutability": "view",
@@ -456,25 +444,6 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "nftID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getTokenIdByNFTIndex",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "address",
           "name": "owner",
           "type": "address"
@@ -491,6 +460,25 @@
           "internalType": "bool",
           "name": "",
           "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "listAddressNFTs",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
