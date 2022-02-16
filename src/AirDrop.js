@@ -3,13 +3,12 @@ import './App.css';
 import { ethers } from 'ethers';
 import React from 'react';
 
-// const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-import contract from './contracts/TSB.json';
-const contractAddress = "0x1dfe2Fd228CbcD41dCaD6A6e6C6a528b39265a60";
+import contract from './contracts/Airdrop.json';
+const contractAddress = "0x66bA8a9C0c04b88FE7613d22f36e0Ea2B811e156";
 const abi = contract.abi;
 
 
-function TSB() {
+function Airdrop() {
     const [currentContractInstance, setCurrentContractInstance] = useState(null);
     
     const initContractInstance = () => {
@@ -43,7 +42,7 @@ function TSB() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-            const tokenId =await contractInstance.buyToken("0xEBd42256B90f002d19C8f2ed4Eed406765759F57",10,{ value: ethers.utils.parseEther("0.1")});
+            await contractInstance.claim("0xEBd42256B90f002d19C8f2ed4Eed406765759F57",{ value: ethers.utils.parseEther("0.1")})
             console.log(tokenId)
           }catch (err){
               console.log(err)
@@ -104,7 +103,6 @@ function TSB() {
         <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
-                    <h2>Add svg index</h2>
                     <button onClick={testFunction}>test function</button>
                 </div>
             </div>
@@ -112,4 +110,4 @@ function TSB() {
     );
 }
 
-export default TSB;
+export default Airdrop;

@@ -52,17 +52,12 @@
     {
       "inputs": [
         {
-          "internalType": "address payable",
+          "internalType": "address",
           "name": "referAddress",
           "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
         }
       ],
-      "name": "buyToken",
+      "name": "claim",
       "outputs": [
         {
           "internalType": "bool",
@@ -102,6 +97,45 @@
     {
       "inputs": [],
       "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_feeClaim",
+          "type": "uint256"
+        }
+      ],
+      "name": "setFeeClaim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_numberTokenClaim",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNumberTokenClaim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_numberTokenRefer",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNumberTokenRefer",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

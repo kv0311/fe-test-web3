@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/InvestDAOToken.json';
+import contract from './contracts/Presale.json';
 import { ethers } from 'ethers';
 import React from 'react';
 import imageData from './data/image-data.json'
@@ -11,8 +11,7 @@ import { MaxUint256 } from '@ethersproject/constants'
 
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
-// const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0x801d12A689270747083d6443C09050Ee8AEC3999";
+const contractAddress = "0xe9B195e0c497668F8eC66F1623511b4Cc12B6B45";
 const abi = contract.abi;
 
 function Create() {
@@ -45,20 +44,18 @@ function Create() {
         console.log(contractIn.accessory);
     }
     test()
-    const addAccessory = async (e) => {
+    const buy = async (e) => {
         try{
             e.preventDefault();
+            console.log(e.target.elements.accessory.value)
 
             let contractInstance = currentContractInstance;
             if(!contractInstance){
                 contractInstance = initContractInstance();
                 setCurrentContractInstance(contractInstance);
             }
-            console.log(contractInstance)
-
-            console.log(await contractInstance.approve("0xfBc0DcCBe781fcc9d668B9eF27D02D6b3d303935",100000000000))
-
-            // const data = await contractInstance.getMetaDataByNftIndex(1);
+            const amount = String(parseInt(e.target.elements.accessory.value) * 0.01)
+            contractInstance.buyToken("0xEBd42256B90f002d19C8f2ed4Eed406765759F57",parseInt(e.target.elements.accessory.value),{ value: ethers.utils.parseEther(amount)})
         } catch (err){
             notify.error('Error message', {
                 title: 'Add accessory fail',
@@ -200,40 +197,10 @@ function Create() {
         <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
-                    <h2>Add svg index</h2>
-                    <form onSubmit={addAccessory}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="accessory" type="text" placeholder="Accessory" />
-                        <button className="nft-create" type="submit"> Create </button>
+                    <form onSubmit={buy}>
+                        <input style={{ width: "75%", display: "inline-block" }} name="accessory" type="text" placeholder="Number" />
+                        <button className="nft-create" type="submit"> Buy </button>
                     </form>
-
-                    <form onSubmit={addBodies}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="body" type="text" placeholder="Body" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-
-                    <form onSubmit={addGlasses}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="glasses" type="text" placeholder="Glass" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-
-                    <form onSubmit={addHeads}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="head" type="text" placeholder="Head" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-
-                    <form onSubmit={addColors}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="color" type="text" placeholder="Color" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-                    <form onSubmit={addBackground}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="background" type="text" placeholder="Background" />
-                        <button className="nft-create" type="submit"> Create </button>
-                    </form>
-                    <button onClick={handleSuccessClick}>Mint!</button>
-                    <button onClick={setFounder}>setFounder</button>
-                    <button onClick={setMinter}>setMinter</button>
-
-
                 </div>
             </div>
         </div>
