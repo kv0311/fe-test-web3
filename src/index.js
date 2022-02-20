@@ -5,6 +5,10 @@ import Home from './Home';
 import Create from './Create';
 import Presale from './Presale';
 import AirDrop from './AirDrop';
+import Proposal from './Proposal';
+import Descriptor from './Descriptor';
+
+
 
 
 
@@ -18,6 +22,10 @@ export default function App() {
         <Route path="/create" element={<Create />} />
       <Route path="/airdrop" element={<AirDrop />} />
       <Route path="/presale" element={<Presale />} />
+      <Route path="/proposal" element={<Proposal />} />
+      <Route path="/descriptor" element={<Descriptor />} />
+
+
 
 
       </Routes>

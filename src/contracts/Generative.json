@@ -1,0 +1,105 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "image",
+          "type": "bytes"
+        }
+      ],
+      "name": "_decodeRLEImage",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint8",
+              "name": "paletteIndex",
+              "type": "uint8"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint8",
+                  "name": "top",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "right",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "bottom",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "left",
+                  "type": "uint8"
+                }
+              ],
+              "internalType": "struct MultiPartRLEToSVG.ContentBounds",
+              "name": "bounds",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint8",
+                  "name": "length",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "colorIndex",
+                  "type": "uint8"
+                }
+              ],
+              "internalType": "struct MultiPartRLEToSVG.Rect[]",
+              "name": "rects",
+              "type": "tuple[]"
+            }
+          ],
+          "internalType": "struct MultiPartRLEToSVG.DecodedImage",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes",
+              "name": "parts",
+              "type": "bytes"
+            },
+            {
+              "internalType": "string",
+              "name": "background",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct MultiPartRLEToSVG.SVGParams",
+          "name": "params",
+          "type": "tuple"
+        }
+      ],
+      "name": "generateSVG",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "svg",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

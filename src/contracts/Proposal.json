@@ -1,0 +1,203 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_totalFundRaise",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_minFundInvest",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maxFundInvest",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_endDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "createProposal",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "createProposalFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllProposal",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "initProposer",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "endDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalFundRaise",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "currentFundRaise",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minFundInvest",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxFundInvest",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalUser",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct ManageInvestProposal.InvestProposal[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getCurrentProposalID",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_proposalID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "investProposal",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "investProposalFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "investProposalList",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "initProposer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "endDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalFundRaise",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "currentFundRaise",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minFundInvest",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxFundInvest",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalUser",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
