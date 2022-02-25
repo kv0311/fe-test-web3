@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/Presale.json';
+import contract from './contracts/BUSD.json';
 import { ethers } from 'ethers';
 import React from 'react';
 import imageData from './data/image-data.json'
@@ -11,7 +11,7 @@ import { MaxUint256 } from '@ethersproject/constants'
 
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
-const contractAddress = "0xe9B195e0c497668F8eC66F1623511b4Cc12B6B45";
+const contractAddress = "0x4B20dd827Dc975A53FDCD48e3EB5aa5A96a0AA2A";
 const abi = contract.abi;
 
 function Create() {
@@ -19,12 +19,11 @@ function Create() {
     
     const initContractInstance = () => {
         const { ethereum } = window;
-
          if (ethereum) {
             const provider = new ethers.providers.Web3Provider(ethereum);
             const signer = provider.getSigner();
+
             const nftContract = new ethers.Contract(contractAddress, abi, signer);
-            console.log("Init new contract instance: %s",nftContract);
             return nftContract;
             // console.log(str)
             // console.log("Initialize payment");
@@ -39,23 +38,18 @@ function Create() {
             console.log("Ethereum object does not exist");
          }
     }
-    const test = async () => {
-        const contractIn = initContractInstance;
-        console.log(contractIn.accessory);
-    }
-    test()
+    
     const buy = async (e) => {
         try{
             e.preventDefault();
-            console.log(e.target.elements.accessory.value)
 
             let contractInstance = currentContractInstance;
             if(!contractInstance){
+                console.log("ds")
                 contractInstance = initContractInstance();
                 setCurrentContractInstance(contractInstance);
             }
-            const amount = String(parseInt(e.target.elements.accessory.value) * 0.01)
-            contractInstance.buyToken("0xEBd42256B90f002d19C8f2ed4Eed406765759F57",parseInt(e.target.elements.accessory.value),{ value: ethers.utils.parseEther(amount)})
+            await contractInstance.approve("0xdF578d05fD9A1467d4BBf3A9B94041554757354D", BigInt(100000000 * 10**18))
         } catch (err){
             notify.error('Error message', {
                 title: 'Add accessory fail',
@@ -197,10 +191,10 @@ function Create() {
         <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
-                    <form onSubmit={buy}>
-                        <input style={{ width: "75%", display: "inline-block" }} name="accessory" type="text" placeholder="Number" />
-                        <button className="nft-create" type="submit"> Buy </button>
-                    </form>
+                    {/* <form onSubmit={buy}> */}
+                        {/* <input style={{ width: "75%", display: "inline-block" }} name="accessory" type="text" placeholder="Number" /> */}
+                        <button className="nft-create" onClick={buy }> Buy </button>
+                    {/* </form> */}
                 </div>
             </div>
         </div>

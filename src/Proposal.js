@@ -3,8 +3,8 @@ import './App.css';
 import { ethers } from 'ethers';
 import React from 'react';
 
-import contract from './contracts/Generative.json';
-const contractAddress = "0x6c1F1305772ff63b2a029af2Bb7866124d5A2CFF";
+import contract from './contracts/Farm.json';
+const contractAddress = "0xdF578d05fD9A1467d4BBf3A9B94041554757354D";
 const abi = contract.abi;
 
 
@@ -34,7 +34,7 @@ function Airdrop() {
          }
     }
     
-      const createProposal =async (e) => {
+      const fund =async (e) => {
           try{
             let contractInstance = currentContractInstance;
             if(!contractInstance){
@@ -42,25 +42,132 @@ function Airdrop() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-            // await contractInstance.createProposal(1000,0,10,12345667,{ value: ethers.utils.parseEther("0.01")})
+            await contractInstance.fund(BigInt(100000 * 10 ** 18))
             // await contractInstance.investProposal(1,BigInt("100000000000000000"),{ value: ethers.utils.parseEther("0.105")})
             
-            console.log(await contractInstance.generateSVG({
-                parts: '0x00021e140605000137020001370f0004000237020002370e0003000337020003370d0002000437020004370c0003000337020003370d0004000237020002370e0005000137020001370f000d370b000d370b000d370b000d370b000d370b000d370b000d370600057d0d370600017d017e017d017e017d0b37097d017e017d017e017d0b370d7d0a370523097d0b370d7d',
-                background: 'd5d7e1'
-            }))
+        //    await contractInstance.buyTokenByStableToken(BigInt(10**18))
             // await contractInstance.createProposal(1000,0,10,12345667)
 
           }catch (err){
               console.log(err)
           }
     }
+
+    const add =async (e) => {
+        try{
+          let contractInstance = currentContractInstance;
+          if(!contractInstance){
+              contractInstance = initContractInstance();
+              setCurrentContractInstance(contractInstance);
+          }
+          console.log(contractInstance)
+          await contractInstance.add(10, '0x621e88d457410d119be630a410f1c99b2e12511b', false)
+        // console.log(await contractInstance.poolLength()
+          // await contractInstance.investProposal(1,BigInt("100000000000000000"),{ value: ethers.utils.parseEther("0.105")})
+          
+      //    await contractInstance.buyTokenByStableToken(BigInt(10**18))
+          // await contractInstance.createProposal(1000,0,10,12345667)
+
+        }catch (err){
+            console.log(err)
+        }
+  }
+
+  const deposit =async (e) => {
+    try{
+      let contractInstance = currentContractInstance;
+      if(!contractInstance){
+          contractInstance = initContractInstance();
+          setCurrentContractInstance(contractInstance);
+      }
+      console.log(contractInstance)
+      await contractInstance.deposit(0, BigInt(100000 * 10 ** 18))
+    // console.log(await contractInstance.poolLength()
+      // await contractInstance.investProposal(1,BigInt("100000000000000000"),{ value: ethers.utils.parseEther("0.105")})
+      
+  //    await contractInstance.buyTokenByStableToken(BigInt(10**18))
+      // await contractInstance.createProposal(1000,0,10,12345667)
+
+    }catch (err){
+        console.log(err)
+    }
+}
+
+const deposited =async (e) => {
+    try{
+      let contractInstance = currentContractInstance;
+      if(!contractInstance){
+          contractInstance = initContractInstance();
+          setCurrentContractInstance(contractInstance);
+      }
+      console.log(await contractInstance.deposited(0, "0xEBd42256B90f002d19C8f2ed4Eed406765759F57"))
+      
+    // console.log(await contractInstance.poolLength()
+      // await contractInstance.investProposal(1,BigInt("100000000000000000"),{ value: ethers.utils.parseEther("0.105")})
+      
+  //    await contractInstance.buyTokenByStableToken(BigInt(10**18))
+      // await contractInstance.createProposal(1000,0,10,12345667)
+
+    }catch (err){
+        console.log(err)
+    }
+}
+
+const pendingReward =async (e) => {
+    try{
+      let contractInstance = currentContractInstance;
+      if(!contractInstance){
+          contractInstance = initContractInstance();
+          setCurrentContractInstance(contractInstance);
+      }
+      console.log(parseInt(await contractInstance.pending(0, "0xEBd42256B90f002d19C8f2ed4Eed406765759F57"))/10**18)
+      
+    // console.log(await contractInstance.poolLength()
+      // await contractInstance.investProposal(1,BigInt("100000000000000000"),{ value: ethers.utils.parseEther("0.105")})
+      
+  //    await contractInstance.buyTokenByStableToken(BigInt(10**18))
+      // await contractInstance.createProposal(1000,0,10,12345667)
+
+    }catch (err){
+        console.log(err)
+    }
+}
+
+const withdraw =async (e) => {
+    try{
+      let contractInstance = currentContractInstance;
+      if(!contractInstance){
+          contractInstance = initContractInstance();
+          setCurrentContractInstance(contractInstance);
+      }
+      console.log(await contractInstance.withdraw(0, BigInt(30*10**18)))
+      
+    // console.log(await contractInstance.poolLength()
+      // await contractInstance.investProposal(1,BigInt("100000000000000000"),{ value: ethers.utils.parseEther("0.105")})
+      
+  //    await contractInstance.buyTokenByStableToken(BigInt(10**18))
+      // await contractInstance.createProposal(1000,0,10,12345667)
+
+    }catch (err){
+        console.log(err)
+    }
+}
+
     
     return (
         <div style={{ background: "#d5d7e1", height: "600px", position: "relative" }}>
             <div className="navArrowsContainer">
                 <div className="nft-form form-style-8">
-                    <button onClick={createProposal}>claim</button>
+                    <button onClick={fund}>Fund</button>
+                    <button onClick={add}>Add</button>
+                    <button onClick={deposit}>Deposit</button>
+                    <button onClick={deposited}>deposited</button>
+                    <button onClick={pendingReward}>pendingreward</button>
+                    <button onClick={withdraw}>withdraw</button>
+
+
+                    
+
                 </div>
             </div>
         </div>

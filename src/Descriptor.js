@@ -10,7 +10,7 @@ import { ReactNoti, notify, POSITION } from 'react-noti'
 const Img = ({ src }) => <span><img width={48} src={src} /></span>
 
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
-const contractAddress = "0xa4315101eFD4CfbF906eB54FD2a5ad37623a0F17";
+const contractAddress = "0x2e86Ae18026De9727c324bDC873b6D85A16c8343";
 const abi = contract.abi;
 
 function Descriptor() {
@@ -140,7 +140,7 @@ function Descriptor() {
                 setCurrentContractInstance(contractInstance);
             }
             console.log(contractInstance)
-            const heads = imageData.images.Eyes.map(e =>e.data)
+            const heads = imageData.images.Face.map(e =>e.data)
             // await contractInstance.addHeads(JSON.parse(e.target.elements.head.value));
             await contractInstance.addManyHeads(heads);
 
