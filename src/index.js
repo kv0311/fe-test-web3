@@ -7,6 +7,8 @@ import Presale from './Presale';
 import AirDrop from './AirDrop';
 import Proposal from './Proposal';
 import Descriptor from './Descriptor';
+import NFTManagement from './NFT-Management';
+
 
 
 
@@ -24,9 +26,11 @@ export default function App() {
       <Route path="/presale" element={<Presale />} />
       <Route path="/proposal" element={<Proposal />} />
       <Route path="/descriptor" element={<Descriptor />} />
+      <Route path="/nft" element={<NFTManagement />} />
 
 
 
+      
 
       </Routes>
     </BrowserRouter>
