@@ -8,6 +8,8 @@ import AirDrop from './AirDrop';
 import Proposal from './Proposal';
 import Descriptor from './Descriptor';
 import NFTManagement from './NFT-Management';
+import NFTMarketplace from './NFT-Marketplace';
+
 
 
 
@@ -27,6 +29,8 @@ export default function App() {
       <Route path="/proposal" element={<Proposal />} />
       <Route path="/descriptor" element={<Descriptor />} />
       <Route path="/nft" element={<NFTManagement />} />
+      <Route path="/nft-marketplace" element={<NFTMarketplace />} />
+
 
 
 

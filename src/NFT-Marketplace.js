@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import contract from './contracts/NFT-Management.json';
+import contract from './contracts/NFT-Marketplace.json';
 import { ethers } from 'ethers';
 import { Container, Row, Col } from 'react-bootstrap';
 // const contractAddress = "0x40765897dcb241eea862d7908fdfb4d773e24fc4"; final
 // const contractAddress = "0x4f588b315aa4d69c3c00395cff33326c0254809c";
 // const contractAddress = "0xa3f18350B5A4eFBdd6E55656dac1370420E9a24E"; bsc done
-const contractAddress ="0x846D34514FBd014fDF746662C10EA405b3Dd16e9"
+const contractAddress ="0x766C579c09856d7F7Eff88297DF9F6b683ba7768"
 
 
 const abi = contract.abi;
 
-function NFTManagement() {
+function NFTMaketplace() {
 
     const [currentContractInstance, setCurrentContractInstance] = useState(null);
     
@@ -47,9 +47,9 @@ function NFTManagement() {
                 contractInstance = initContractInstance();
                 setCurrentContractInstance(contractInstance);
             }
-            // await contractInstance.mint("0xEBd42256B90f002d19C8f2ed4Eed406765759F57", 10)
+            // await contractInstance.openTrade(1, 10)
+            console.log(await contractInstance.getTrade(1))
             // console.log(await contractInstance.tokenURI(1))
-            await contractInstance.setApprovalForAll('0x766C579c09856d7F7Eff88297DF9F6b683ba7768',true)
 
         } catch (err){
             console.log(err)
@@ -195,4 +195,4 @@ function NFTManagement() {
 );
 }
 
-export default NFTManagement;
+export default NFTMaketplace;
